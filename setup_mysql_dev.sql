@@ -1,9 +1,5 @@
-DATABASE_NAME="hbnb_dev_db"
-USER_NAME="hbnb_dev"
-USER_PASSWORD="hbnb_dev_pwd"
-
-DATABASE IF NOT EXISTS ${DATABASE_NAME};
-CREATE USER IF NOT EXISTS '${USER_NAME}'@'localhost' IDENTIFIED BY '${USER_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO '${USER_NAME}'@'localhost';
-GRANT SELECT ON performance_schema.* TO '${USER_NAME}'@'localhost';
+DATABASE IF NOT EXISTS hbnb_dev_db;
+CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
+GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO 'hbnb_dev'@'localhost';
+GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
 FLUSH PRIVILEGES;
