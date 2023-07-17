@@ -22,22 +22,27 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """returns a dictionary
-        Return:
-            returns a dictionary of __object
         """
-        dic = {}
-        if cls:
-            dictionary = self.__objects
-            for key in dictionary:
-                partition = key.replace('.', ' ')
-                partition = shlex.split(partition)
-                if (partition[0] == cls.__name__):
-                    dic[key] = self.__objects[key]
-            return (dic)
-        else:
-            return self.__objects
+        Return a list of objects filtered by class type.
 
+        Args:
+            cls: The class type to filter objects (optional).
+
+        Returns:
+            list: A list of objects filtered by class type.
+        """
+        if cls is not None:
+            filtered_objects = []
+            class_name = cls.__name__
+
+            for key, obj in self.__objects.items():
+                partition = key.split('.')
+                if partition[0] == class_name:
+                    filtered_objects.append(obj)
+
+            return filtered_objects
+
+        return list(self.__objects.values())
     def new(self, obj):
         """sets __object to given obj
         Args:
@@ -70,9 +75,9 @@ class FileStorage:
     def delete(self, obj=None):
         """ delete an existing element
         """
-        if obj:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
-            del self.__objects[key]
+        if obj is not None:
+            key = f"{obj.__class__.__name__}.{obj.id}"
+            self.__objects.pop(key, None)
 
     def close(self):
         """ calls reload()
